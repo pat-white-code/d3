@@ -24,12 +24,8 @@ svg.selectAll('text')
   .enter()
   .append('text')
   .text(d => d)
+  // .attrs({fill: 'white'})
   .attr('text-anchor', 'middle')
   .attr('x', (d, i)=> i * (w / data.length) + (w / data.length - padding) / 2)
-  .attr('fill', 'white')
   .attr('y', (d) => h - d * 2 + 18)
   .attr('font-family', 'sans-serif')
-  .attr({
-    x: (d, i) => i * (w / data.length),
-    y: d => h - d * 2
-  })
