@@ -20,6 +20,14 @@ const salesKpi = (d) => {
   return 'grey'
 }
 
+const showMinMax = (ds, col, val, type) => {
+  const column = ds.map(data => data[col]);
+  console.log(column)
+  const min = d3.min(column)
+  const max = d3.max(column)
+  if(type === 'minmax' && (val === min || val === max)) return val
+  if(type === 'all') return val
+}
 
 const svg = d3.select('body').append('svg').attr('width', w).attr('height', h)
 
@@ -36,10 +44,11 @@ const labels = svg.selectAll('text')
                   .data(monthlySales)
                   .enter()
                   .append('text')
-                  .text(d => `${d.month}, ${d.sales}`)
+                  .text(d => showMinMax(monthlySales, 'sales', d.sales, 'minmax'))
                   .attr('y', d => h - d.sales)
                   .attr('x', (d, i) => i * (w / monthlySales.length) + 5)
                   .attr('text-anchor', 'middle')
+                  .attr()
 
 // const lineFunc = d3.line()
 //   .x(d => d.month * 2)
