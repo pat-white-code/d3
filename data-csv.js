@@ -7,13 +7,15 @@ const w = +svg.attr('width')
 console.log(h, w)
 
 const render = data => {
+  const xVal = d => d.population
+  const yVal = d => d.country
 
   const xScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.population)])
+    .domain([0, d3.max(data, xVal)])
     .range([0, w])
 
     const yScale = d3.scaleBand()
-    .domain(data.map(d => d.country))
+    .domain(data.map(yVal))
     .range([0, h]);
 
   console.log('XSCALE', xScale.domain());
@@ -27,7 +29,7 @@ const render = data => {
       .attr('y', data => yScale(data.country))
       .attr('height', yScale.bandwidth())
       // .attr('height', 300)
-      .attr('width', d => xScale(d.population))
+      .attr('width', d => xScale(xVal(d)))
 }
 
 d3.csv('data.csv').then(data => {
