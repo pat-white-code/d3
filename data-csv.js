@@ -9,22 +9,33 @@ console.log(h, w)
 const render = data => {
   const xVal = d => d.population
   const yVal = d => d.country
+  const margin = {top: 30, right: 30, bottom: 30, left: 30}
+  const innerWidth = w - margin.left - margin.right;
+  const innerHeight = h - margin.top - margin.bottom;
+
 
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(data, xVal)])
-    .range([0, w])
+    .range([0, innerWidth])
 
     const yScale = d3.scaleBand()
     .domain(data.map(yVal))
-    .range([0, h]);
+    .range([0, innerHeight]);
 
-  console.log('XSCALE', xScale.domain());
-  console.log('XSCALE', xScale.range());
+    const yAxis = d3.axisLeft(yScale)
 
-  console.log('Y DOMAIN', yScale.domain());
-  console.log('Y RANGE', yScale.range());
+  // console.log('XSCALE', xScale.domain());
+  // console.log('XSCALE', xScale.range());
 
-  svg.selectAll('rect').data(data)
+  // console.log('Y DOMAIN', yScale.domain());
+  // console.log('Y RANGE', yScale.range());
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.right})`)
+
+  yAxis(g.append('g'));
+
+  g.selectAll('rect').data(data)
     .enter().append('rect')
       .attr('y', data => yScale(data.country))
       .attr('height', yScale.bandwidth())
