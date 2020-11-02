@@ -1,3 +1,11 @@
 svg{
   border: 1px red solid;
 }
+
+rect{
+  fill: steelblue
+}
+
+text {
+  font-size: 1.4em;
+}

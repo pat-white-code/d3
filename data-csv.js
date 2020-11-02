@@ -9,7 +9,7 @@ console.log(h, w)
 const render = data => {
   const xVal = d => d.population
   const yVal = d => d.country
-  const margin = {top: 30, right: 30, bottom: 30, left: 30}
+  const margin = {top: 50, right: 50, bottom: 50, left: 80}
   const innerWidth = w - margin.left - margin.right;
   const innerHeight = h - margin.top - margin.bottom;
 
@@ -20,20 +20,16 @@ const render = data => {
 
     const yScale = d3.scaleBand()
     .domain(data.map(yVal))
-    .range([0, innerHeight]);
-
-    const yAxis = d3.axisLeft(yScale)
-
-  // console.log('XSCALE', xScale.domain());
-  // console.log('XSCALE', xScale.range());
-
-  // console.log('Y DOMAIN', yScale.domain());
-  // console.log('Y RANGE', yScale.range());
+    .range([0, innerHeight])
+    .padding(0.2);
 
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
 
-  yAxis(g.append('g'));
+
+  g.append('g').call(d3.axisLeft(yScale))
+  g.append('g').call(d3.axisBottom(xScale))
+  .attr('transform', `translate(0, ${innerHeight})`)
 
   g.selectAll('rect').data(data)
     .enter().append('rect')
