@@ -26,9 +26,11 @@ const render = data => {
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
 
+  const xAxis = d3.axisBottom(xScale)
+    .tickFormat(d3.format('.3s'))
 
   g.append('g').call(d3.axisLeft(yScale))
-  g.append('g').call(d3.axisBottom(xScale))
+  g.append('g').call(xAxis)
   .attr('transform', `translate(0, ${innerHeight})`)
 
   g.selectAll('rect').data(data)
