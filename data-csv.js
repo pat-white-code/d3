@@ -9,7 +9,7 @@ console.log(h, w)
 const render = data => {
   const xVal = d => d.population
   const yVal = d => d.country
-  const margin = {top: 50, right: 50, bottom: 50, left: 100}
+  const margin = {top: 100, right: 50, bottom: 80, left: 160}
   const innerWidth = w - margin.left - margin.right;
   const innerHeight = h - margin.top - margin.bottom;
 
@@ -31,14 +31,18 @@ const render = data => {
 
   const xAxis = d3.axisBottom(xScale)
     .tickFormat(xAxisTickFormat)
+    .tickSize(-innerHeight);
 
   g.append('g').call(d3.axisLeft(yScale))
     .selectAll('.domain, .tick line').remove()
-
-  g.append('g').call(xAxis)
+  
+  const xAxisG = g.append('g').call(xAxis)
   .attr('transform', `translate(0, ${innerHeight})`)
-  .attr('class', 'x-axis-lab')
-  .select('.domain').remove();
+  .attr('class', 'x-axis-lab');
+  
+  xAxisG.select('.domain').remove();
+
+  xAxisG.append('text').text('Total Population').attr('fill', 'black').attr('y', 60).attr('x', innerWidth / 2)
 
   g.selectAll('rect').data(data)
     .enter().append('rect')
