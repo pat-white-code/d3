@@ -9,3 +9,12 @@ rect{
 text {
   font-size: 1.4em;
 }
+
+.chart-title {
+  font-size: 2em;
+  font-family: sans-serif;
+}
+
+.x-axis-lab .tick text {
+  font-size: 2.4em
+}
