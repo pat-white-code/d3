@@ -42,7 +42,7 @@ const render = data => {
   
   xAxisG.select('.domain').remove();
 
-  xAxisG.append('text').text('Total Population').attr('fill', 'black').attr('y', 60).attr('x', innerWidth / 2)
+  xAxisG.append('text').text('Total Population').attr('fill', 'black').attr('y', 60).attr('x', innerWidth / 2).attr('class', 'axis-label')
 
   g.selectAll('rect').data(data)
     .enter().append('rect')
