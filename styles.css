@@ -2,7 +2,7 @@ svg{
   border: 1px red solid;
 }
 
-rect{
+rect, circle{
   fill: steelblue
 }
 
