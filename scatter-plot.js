@@ -17,11 +17,12 @@ const render = data => {
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(data, xVal)])
     .range([0, innerWidth])
+    .nice();
 
     const yScale = d3.scalePoint()
     .domain(data.map(yVal))
     .range([0, innerHeight])
-    .padding(0.2);
+    .padding(0.5)
 
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.right})`)
@@ -33,8 +34,14 @@ const render = data => {
     .tickFormat(xAxisTickFormat)
     .tickSize(-innerHeight);
 
-  g.append('g').call(d3.axisLeft(yScale))
-    .selectAll('.domain, .tick line').remove()
+  const yAxis = d3.axisLeft(yScale)
+    .tickSize(-innerWidth);
+
+  const yAxisG = g.append('g').call(yAxis)
+  // yAxisG.tickFormat()
+  // yAxisG.tickSize(innerWidth)
+  
+  yAxisG.selectAll('.domain').remove();
   
   const xAxisG = g.append('g').call(xAxis)
   .attr('transform', `translate(0, ${innerHeight})`)
